@@ -39,6 +39,13 @@ Source: https://www.thingiverse.com/thing:2782111
 
 My contribution focused on the electronics, programming, system integration, and wireless control. I also designed and added several small custom components to complete the assembly.
 
+## Calibration
+
+Initial potentiometer mapping used generic ADC ranges (0–4095), which produced 
+inconsistent finger motion due to per-potentiometer variation. Each finger's 
+actual min/max ADC range was measured via Serial Monitor and hardcoded into 
+the mapping function, significantly improving motion accuracy and consistency.
+
 ## Project Structure
 
 ```text
@@ -71,6 +78,12 @@ Project images and demonstration videos are available in the `media` folder.
 * Brain-computer interface (BCI) integration
 * Gesture recognition
 * Machine learning-based motion prediction
+
+## Notes
+
+Sender code requires ESP32 Arduino core 3.x (uses `wifi_tx_info_t` in the 
+send callback). On older cores, replace the callback signature with the 
+legacy form: `void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status)`.
 
 ## License
 
